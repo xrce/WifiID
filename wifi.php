@@ -43,7 +43,6 @@ print "$cyan    `.  // .'   $white https://github.com/N1ght420 \n";
 print "$cyan    `-------'                                \n\n";
 
 $awal = array("","9813","9812","9811","9853","9852");
-$onenum = array("","1","3","7","8","9");
 echo "$yellow ??$white Total : ";
 $total = trim(fgets(STDIN));
 
@@ -52,9 +51,7 @@ for ($i=0; $i < $total; $i++){
     $length = rand(13,15);
     $randawal = array_rand($awal,3);
     $base = $awal[$randawal[1]];
-    $randnum = array_rand($onenum,3);
-    $one = $onenum[$randnum[1]];
-    $user = $base.$one.user(str_replace("-", "", strlen($base) -$length));
+    $user = $base.user(str_replace("-", "", strlen($base) -$length));
     $pass = pass(3);
     fwrite(fopen($list, "a"), "$user|$pass \n");
 }
